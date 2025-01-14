@@ -11,7 +11,8 @@
 # Basic example recipe, change these to your requirements.
 CUSTOM_PACKAGES="blockd block-mount kmod-fs-ext4 kmod-usb2 kmod-usb3 kmod-usb-storage kmod-usb-core usbutils \
     -dnsmasq dnsmasq-full luci luci-app-ddns luci-app-samba4 luci-app-sqm sqm-scripts \
-    luci-app-attendedsysupgrade curl nano luci-app-attendedsysupgrade"
+    luci-app-attendedsysupgrade curl nano luci-app-attendedsysupgrade \
+    iftop htop luci-app-v2raya luci-app-statistics luci-app-ttyd luci-app-transmission v2ray-geosite v2ray-geoip"
 
 #######################################################################################################################
 
@@ -72,7 +73,7 @@ clear
     KERNEL_PARTSIZE=""       # variable set in MB
     ROOT_PARTSIZE=""         # variable set in MB (values over 8192 may give memory exhaustion errors)
     KERNEL_RESIZE_DEF="32"   # OWRT default is 32 MB - don't change this without a specific reason.
-    ROOT_RESIZE_DEF="104"    # OWRT default is 104 MB. Don't go above 8192.
+    ROOT_RESIZE_DEF="512"    # OWRT default is 104 MB. Don't go above 8192.
     IMAGE_TAG=""             # ID tag is added to the completed image filename to uniquely identify the built image(s)
     CREATE_VM=""             # Create VMware images of the final build true/false
     RELEASE_URL="https://downloads.openwrt.org/releases/" # Where to obtain latest stable version number
@@ -106,7 +107,7 @@ if [[ ${MOD_PARTSIZE} = true ]] && [[ ${IMAGE_PROFILE} = "generic" ]]; then
     [[ -z ${KERNEL_PARTSIZE} ]] &&
         read -p "    x86 ONLY!: Enter KERNEL partition MB [OWRT default is 32 - hit enter for ${KERNEL_RESIZE_DEF}, or enter custom size]: " KERNEL_PARTSIZE
     [[ -z ${ROOT_PARTSIZE} ]] &&
-        read -p "    x86 ONLY!: Enter ROOT partition MB between 104 & 8192 [OWRT default is 104 - hit enter for ${ROOT_RESIZE_DEF}, or enter custom size]: " ROOT_PARTSIZE
+        read -p "    x86 ONLY!: Enter ROOT partition MB between 104 & 8192 [OWRT default is ${ROOT_RESIZE_DEF} - hit enter for ${ROOT_RESIZE_DEF}, or enter custom size]: " ROOT_PARTSIZE
 fi
 
 # If no kernel partition size value given, create a default value
@@ -208,6 +209,9 @@ if [[ ${VERSION} != "" ]]; then
 else
     BUILDER="https://downloads.openwrt.org/snapshots/targets/${TARGET}/${ARCH}/openwrt-imagebuilder-${TARGET}-${ARCH}.Linux-x86_64.tar.zst" # Current snapshot
 fi
+
+#added to fix Ver24+ file ext issue
+MY_VER=`echo ${VERSION} | awk -F"." '{print $1}'`; [ $MY_VER -gt 23 ] && BUILDER="https://downloads.openwrt.org/releases/${VERSION}/targets/${TARGET}/${ARCH}/openwrt-imagebuilder-${VERSION}-${TARGET}-${ARCH}.Linux-x86_64.tar.zst"
 
 # Configure the build paths
 SOURCE_FILE="${BUILDER##*/}" # Separate the tar.xz file name from the source download link
