@@ -5,6 +5,15 @@
 # David Harrop
 # November 2024
 #######################################################################################################################
+# CUSTOM PACKAGES [ADD YOUR CUSTOM PACKAGE RECIPE HERE]
+#######################################################################################################################
+
+# Basic example recipe, change these to your requirements.
+CUSTOM_PACKAGES="blockd block-mount kmod-fs-ext4 kmod-usb2 kmod-usb3 kmod-usb-storage kmod-usb-core usbutils \
+    -dnsmasq dnsmasq-full luci luci-app-ddns luci-app-samba4 luci-app-sqm sqm-scripts \
+    luci-app-attendedsysupgrade curl nano luci-app-attendedsysupgrade"
+
+#######################################################################################################################
 
 clear
 
@@ -45,15 +54,6 @@ echo
 echo -e "${CYAN}Checking for curl...${NC}"
 sudo apt-get update -qq && sudo apt-get install curl -qq -y
 clear
-
-#######################################################################################################################
-# ADD YOUR CUSTOM PACKAGE RECIPE HERE
-#######################################################################################################################
-
-# Basic example recipe, change these to your requirements.
-CUSTOM_PACKAGES="blockd block-mount kmod-fs-ext4 kmod-usb2 kmod-usb3 kmod-usb-storage kmod-usb-core usbutils \
-    -dnsmasq dnsmasq-full luci luci-app-ddns luci-app-samba4 luci-app-sqm sqm-scripts \
-    luci-app-attendedsysupgrade curl nano luci-app-attendedsysupgrade"
 
 #######################################################################################################################
 # Mandatory static script parameters - do not edit unless expert
@@ -113,6 +113,7 @@ fi
 if [[ ${MOD_PARTSIZE} = true ]] && [[ -z ${KERNEL_PARTSIZE} ]] && [[ ${IMAGE_PROFILE} = "generic" ]]; then
     KERNEL_PARTSIZE=$KERNEL_RESIZE_DEF
    fi
+   
 # If no root partition size value given, create a default value
 if [[ ${MOD_PARTSIZE} = true ]] && [[ -z ${ROOT_PARTSIZE} ]] && [[ ${IMAGE_PROFILE} = "generic" ]]; then
     ROOT_PARTSIZE=$ROOT_RESIZE_DEF
