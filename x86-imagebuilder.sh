@@ -76,7 +76,8 @@ clear
     ROOT_RESIZE_DEF="512"    # OWRT default is 104 MB. Don't go above 8192.
     IMAGE_TAG=""             # ID tag is added to the completed image filename to uniquely identify the built image(s)
     CREATE_VM=""             # Create VMware images of the final build true/false
-    RELEASE_URL="https://downloads.openwrt.org/releases/" # Where to obtain latest stable version number
+    #RELEASE_URL="https://downloads.openwrt.org/releases/" # Where to obtain latest stable version number
+    RELEASE_URL="https://mirrors.tuna.tsinghua.edu.cn/openwrt/"
 
 # Prompt for the desired OWRT version
 if [[ -z ${VERSION} ]]; then
@@ -205,13 +206,13 @@ fi
 
 # Dynamically create the OpenWRT download link
 if [[ ${VERSION} != "" ]]; then
-    BUILDER="https://downloads.openwrt.org/releases/${VERSION}/targets/${TARGET}/${ARCH}/openwrt-imagebuilder-${VERSION}-${TARGET}-${ARCH}.Linux-x86_64.tar.xz"
+    BUILDER="${RELEASE_URL}releases/${VERSION}/targets/${TARGET}/${ARCH}/openwrt-imagebuilder-${VERSION}-${TARGET}-${ARCH}.Linux-x86_64.tar.xz"
 else
-    BUILDER="https://downloads.openwrt.org/snapshots/targets/${TARGET}/${ARCH}/openwrt-imagebuilder-${TARGET}-${ARCH}.Linux-x86_64.tar.zst" # Current snapshot
+    BUILDER="${RELEASE_URL}snapshots/targets/${TARGET}/${ARCH}/openwrt-imagebuilder-${TARGET}-${ARCH}.Linux-x86_64.tar.zst" # Current snapshot
 fi
 
 #added to fix Ver24+ file ext issue
-MY_VER=`echo ${VERSION} | awk -F"." '{print $1}'`; [ $MY_VER -gt 23 ] && BUILDER="https://downloads.openwrt.org/releases/${VERSION}/targets/${TARGET}/${ARCH}/openwrt-imagebuilder-${VERSION}-${TARGET}-${ARCH}.Linux-x86_64.tar.zst"
+MY_VER=`echo ${VERSION} | awk -F"." '{print $1}'`; [ $MY_VER -gt 23 ] && BUILDER="${RELEASE_URL}releases/${VERSION}/targets/${TARGET}/${ARCH}/openwrt-imagebuilder-${VERSION}-${TARGET}-${ARCH}.Linux-x86_64.tar.zst"
 
 # Configure the build paths
 SOURCE_FILE="${BUILDER##*/}" # Separate the tar.xz file name from the source download link
