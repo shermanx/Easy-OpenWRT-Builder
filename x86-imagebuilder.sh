@@ -12,7 +12,7 @@
 CUSTOM_PACKAGES="blockd block-mount kmod-fs-ext4 kmod-usb2 kmod-usb3 kmod-usb-storage kmod-usb-core usbutils \
     -dnsmasq dnsmasq-full luci luci-app-ddns luci-app-samba4 luci-app-sqm sqm-scripts \
     luci-app-attendedsysupgrade curl nano luci-app-attendedsysupgrade \
-    iftop htop luci-app-v2raya luci-app-statistics luci-app-ttyd luci-app-transmission v2ray-geosite v2ray-geoip"
+    iftop htop luci-app-v2raya luci-app-statistics luci-app-ttyd luci-app-transmission v2ray-geosite v2ray-geoip luci-app-frpc"
 
 #######################################################################################################################
 
