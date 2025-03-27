@@ -76,12 +76,12 @@ clear
     ROOT_RESIZE_DEF="512"    # OWRT default is 104 MB. Don't go above 8192.
     IMAGE_TAG=""             # ID tag is added to the completed image filename to uniquely identify the built image(s)
     CREATE_VM=""             # Create VMware images of the final build true/false
-    #RELEASE_URL="https://downloads.openwrt.org/releases/" # Where to obtain latest stable version number
+    VER_RELEASE_URL="https://downloads.openwrt.org/releases/" # Where to obtain latest stable version number
     RELEASE_URL="https://mirrors.tuna.tsinghua.edu.cn/openwrt/"
 
 # Prompt for the desired OWRT version
 if [[ -z ${VERSION} ]]; then
-    LATEST_RELEASE=$(curl -s "$RELEASE_URL" | grep -oP "([0-9]+\.[0-9]+\.[0-9]+)" | sort -V | tail -n1)
+    LATEST_RELEASE=$(curl -s "$VER_RELEASE_URL" | grep -oP "([0-9]+\.[0-9]+\.[0-9]+)" | sort -V | tail -n1)
     echo
     echo -e "${CYAN}Enter OpenWRT version to build:${NC}"
     while true; do
